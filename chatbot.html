@@ -14,45 +14,39 @@
 
   <script type="text/babel">
 
-    function ChatInput() {
+    function ChatInput({ chatMessages, setChatMessages }) {
+      const [inputText, setInputText] = React.useState('');
+
+      function saveInputText(event) {
+        setInputText(event.target.value);
+      }
+
+      function sendMessage() {
+        const newChatMessages = [
+          ...chatMessages,
+          {
+            message: inputText,
+            sender: 'user',
+            id: crypto.randomUUID()
+          }
+        ];
+
+        setChatMessages(newChatMessages);
+        setInputText('');
+      }
+
       return (
         <div>
-          <input type="text" placeholder="Send a Message to Chatbot" size="30" />
-          <button>Send</button>
+          <input placeholder="Send a Message to Chatbot" size="30" onChange={saveInputText} value={inputText} />
+          <button onClick={sendMessage}>Send</button>
         </div>
       );
     }
 
-    function ChatMessages() {
-      const [chatMessages, setChatMessages] = React.useState([
-        {
-          message: 'Hello',
-          sender: 'user',
-          id: crypto.randomUUID()
-        },
-        {
-          message: 'Hello! How can I help you?',
-          sender: 'robot',
-          id: crypto.randomUUID()
-        }
-      ]);
-
-      function sendMessage() {
-       const newChatMessages = setChatMessages([
-          ...chatMessages,
-          {
-            message: 'Hii',
-            sender: 'user',
-            id: crypto.randomUUID()
-          }
-        ]);
-
-        return newChatMessages;
-      }
+    function ChatMessages({ chatMessages }) {
 
       return (
         <>
-        <button onClick={sendMessage}>Send Msg</button>
           {chatMessages.map((chatMessage) => {
             return (
               <ChatMessage
@@ -78,10 +72,23 @@
     }
 
     function App() {
+      const [chatMessages, setChatMessages] = React.useState([
+        {
+          message: 'Hello',
+          sender: 'user',
+          id: crypto.randomUUID()
+        },
+        {
+          message: 'Hello! How can I help you?',
+          sender: 'robot',
+          id: crypto.randomUUID()
+        }
+      ]);
+
       return (
         <>
-          <ChatInput />
-          <ChatMessages />
+          <ChatInput chatMessages={chatMessages} setChatMessages={setChatMessages} />
+          <ChatMessages chatMessages={chatMessages} />
         </>
       );
     }
