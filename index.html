@@ -2,111 +2,81 @@
 <html>
   <head>
     <title>Chatbot</title>
-   <style>
-  * {
-    box-sizing: border-box;
-  }
+    <style>
+      body {
+        font-family: Arial;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
 
-  body {
-    font-family: Arial;
-    margin: 0;
-    padding: 0;
-  }
+      .send-button {
+        background-color: rgb(25, 135, 84);
+        color: white;
+        padding: 12px 20px;
+        margin-left: 10px;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        cursor: pointer;
+      }
 
-  .send-button {
-    background-color: rgb(25, 135, 84);
-    color: white;
-    padding: 12px 20px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
+      .chat-input {
+        padding: 12px 15px;
+        border-radius: 10px;
+        border-width: 1px;
+        font-size: 15px;
 
-  .chat-input {
-    padding: 12px 15px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-    flex-grow: 1;
-    min-width: 0;
-  }
+        flex-grow: 1;
+      }
 
-  .chat-input-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px;
-    position: sticky;
-    bottom: 0;
-    background: white;
-  }
+      .chat-input-container {
+        display: flex;
+        margin-bottom: 60px;
+      }
 
-  .app-container {
-    max-width: 600px;
-    margin: 0 auto;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+      .app-container {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
 
-  .chat-message-user {
-    display: flex;
-    justify-content: flex-end;
-    align-items: start;
-  }
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
 
-  .chat-message-robot {
-    display: flex;
-    justify-content: flex-start;
-    align-items: start;
-  }
+      .chat-message-user {
+        display: flex;
+        justify-content: end;
+        align-items: start;
+      }
 
-  .chat-message-text {
-    background-color: rgb(238, 238, 238);
-    padding: 15px 20px;
-    border-radius: 10px;
-    margin: 10px;
-    max-width: 300px;
-    word-wrap: break-word;
-  }
+      .chat-message-robot {
+        display: flex;
+        align-items: start;
+      }
 
-  .chat-message-profile {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-  }
+      .chat-message-text {
+        background-color: rgb(238, 238, 238);
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-bottom: 20px;
+        max-width: 300px;
+      }
 
-  .chat-messages-container {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 10px;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;     /* Firefox */
-  }
+      .chat-message-profile {
+        width: 45px;
+      }
 
-  .chat-messages-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
-
-  @media (max-width: 500px) {
-    .chat-input-container {
-      flex-direction: column;
-    }
-
-    .send-button {
-      width: 100%;
-    }
-
-    .chat-input {
-      width: 100%;
-    }
-  }
-</style>
-
+      .chat-messages-container {
+        flex-grow: 1;
+        margin-top: 20px;
+        overflow: scroll;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+    </style>
   </head>
   <body>
     <div class="js-container"></div>
@@ -117,7 +87,6 @@
     <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
 
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
-     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/babel">
       function ChatInput({ chatMessages, setChatMessages }) {
         const [inputText, setInputText] = React.useState('');
@@ -191,13 +160,13 @@
               : 'chat-message-robot'
           }>
             {sender === 'robot' && (
-              <img src="images/robot.png" className="chat-message-profile" />
+              <img src="robot.png" className="chat-message-profile" />
             )}
             <div className="chat-message-text">
               {message}
             </div>
             {sender === 'user' && (
-              <img src="images/user.png" className="chat-message-profile" />
+              <img src="user.png" className="chat-message-profile" />
             )}
           </div>
         );
@@ -237,6 +206,14 @@
           message: 'Hello! How can I help you?',
           sender: 'robot',
           id: 'id2'
+        }, {
+          message: 'can you get me todays date?',
+          sender: 'user',
+          id: 'id3'
+        }, {
+          message: 'Today is September 27',
+          sender: 'robot',
+          id: 'id4'
         }]);
         // const [chatMessages, setChatMessages] = array;
         // const chatMessages = array[0];
